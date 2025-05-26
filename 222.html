@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sơ đồ PERT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        .pert-diagram {
+            position: relative;
+            width: 100%;
+            min-width: 1900px;
+            height: 1100px;
+            margin: 20px 0;
+        }
+        .node {
+            position: absolute;
+            width: 100px;
+            height: 60px;
+            border: 2px solid #000;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .node-header {
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #000;
+        }
+        .node-times {
+            height: 30px;
+            display: flex;
+        }
+        .time-left {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid #000;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .time-right {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .arrow {
+            position: absolute;
+            border: 1px solid #000;
+            background: #000;
+        }
+        .arrow-horizontal {
+            height: 2px;
+        }
+        .arrow-vertical {
+            width: 2px;
+        }
+        .arrow-head {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 8px solid #000;
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+        }
+        h1 {
+            text-align: center;
+            color: #2c5aa0;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sơ đồ PERT - Dự án Quản lý Thư viện</h1>
+        
+        <div class="pert-diagram">
+            <!-- Node A1 -->
+            <div class="node" style="left: 50px; top: 50px;">
+                <div class="node-header">A1</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow A1 to A2 -->
+            <div class="arrow arrow-vertical" style="left: 100px; top: 110px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 96px; top: 148px;"></div>
+            
+            <!-- Node A2 -->
+            <div class="node" style="left: 50px; top: 150px;">
+                <div class="node-header">A2</div>
+                <div class="node-times">
+                    <div class="time-left">1.5</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow A2 to A3 -->
+            <div class="arrow arrow-vertical" style="left: 100px; top: 210px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 96px; top: 248px;"></div>
+            
+            <!-- Node A3 -->
+            <div class="node" style="left: 50px; top: 250px;">
+                <div class="node-header">A3</div>
+                <div class="node-times">
+                    <div class="time-left">3</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow A3 to A4 -->
+            <div class="arrow arrow-vertical" style="left: 100px; top: 310px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 96px; top: 348px;"></div>
+            
+            <!-- Node A4 -->
+            <div class="node" style="left: 50px; top: 350px;">
+                <div class="node-header">A4</div>
+                <div class="node-times">
+                    <div class="time-left">4.5</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow A4 to A5 -->
+            <div class="arrow arrow-vertical" style="left: 100px; top: 410px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 96px; top: 448px;"></div>
+            
+            <!-- Node A5 -->
+            <div class="node" style="left: 50px; top: 450px;">
+                <div class="node-header">A5</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow A5 to B1 -->
+            <div class="arrow arrow-horizontal" style="left: 150px; top: 480px; width: 40px;"></div>
+            <div class="arrow-head" style="left: 188px; top: 476px;"></div>
+            
+            <!-- Node B1 -->
+            <div class="node" style="left: 200px; top: 450px;">
+                <div class="node-header">B1</div>
+                <div class="node-times">
+                    <div class="time-left">1.5</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow B1 to B2 -->
+            <div class="arrow arrow-horizontal" style="left: 300px; top: 480px; width: 40px;"></div>
+            <div class="arrow-head" style="left: 338px; top: 476px;"></div>
+            
+            <!-- Node B2 -->
+            <div class="node" style="left: 350px; top: 450px;">
+                <div class="node-header">B2</div>
+                <div class="node-times">
+                    <div class="time-left">2.5</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow B2 to B3 -->
+            <div class="arrow arrow-horizontal" style="left: 450px; top: 480px; width: 40px;"></div>
+            <div class="arrow-head" style="left: 488px; top: 476px;"></div>
+            
+            <!-- Node B3 -->
+            <div class="node" style="left: 500px; top: 450px;">
+                <div class="node-header">B3</div>
+                <div class="node-times">
+                    <div class="time-left">4</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow B3 to B4 -->
+            <div class="arrow arrow-horizontal" style="left: 600px; top: 480px; width: 40px;"></div>
+            <div class="arrow-head" style="left: 638px; top: 476px;"></div>
+            
+            <!-- Node B4 -->
+            <div class="node" style="left: 650px; top: 450px;">
+                <div class="node-header">B4</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow B4 to B5 -->
+            <div class="arrow arrow-horizontal" style="left: 750px; top: 480px; width: 40px;"></div>
+            <div class="arrow-head" style="left: 788px; top: 476px;"></div>
+            
+            <!-- Node B5 -->
+            <div class="node" style="left: 800px; top: 450px;">
+                <div class="node-header">B5</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow B5 to C1 -->
+            <div class="arrow arrow-vertical" style="left: 850px; top: 410px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 846px; top: 368px;"></div>
+            
+            <!-- Node C1 -->
+            <div class="node" style="left: 800px; top: 350px;">
+                <div class="node-header">C1</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow C1 to C2 -->
+            <div class="arrow arrow-vertical" style="left: 850px; top: 310px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 846px; top: 268px;"></div>
+            
+            <!-- Node C2 -->
+            <div class="node" style="left: 800px; top: 250px;">
+                <div class="node-header">C2</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow C2 to C3 -->
+            <div class="arrow arrow-vertical" style="left: 850px; top: 210px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 846px; top: 168px;"></div>
+            
+            <!-- Node C3 -->
+            <div class="node" style="left: 800px; top: 150px;">
+                <div class="node-header">C3</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow C3 to C4 -->
+            <div class="arrow arrow-vertical" style="left: 850px; top: 110px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 846px; top: 68px;"></div>
+            
+            <!-- Node C4 -->
+            <div class="node" style="left: 800px; top: 50px;">
+                <div class="node-header">C4</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow C4 to C5 -->
+            <div class="arrow arrow-horizontal" style="left: 900px; top: 80px; width: 40px;"></div>
+            <div class="arrow-head" style="left: 938px; top: 76px;"></div>
+            
+            <!-- Node C5 -->
+            <div class="node" style="left: 950px; top: 50px;">
+                <div class="node-header">C5</div>
+                <div class="node-times">
+                    <div class="time-left">3</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Từ C2 tới D1 (song song) -->
+            <div class="arrow arrow-horizontal" style="left: 900px; top: 280px; width: 40px;"></div>
+            <div class="arrow-head" style="left: 938px; top: 276px;"></div>
+            
+            <!-- Node D1 -->
+            <div class="node" style="left: 950px; top: 250px;">
+                <div class="node-header">D1</div>
+                <div class="node-times">
+                    <div class="time-left">5</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow D1 to D2 -->
+            <div class="arrow arrow-horizontal" style="left: 1050px; top: 280px; width: 40px;"></div>
+            <div class="arrow-head" style="left: 1088px; top: 276px;"></div>
+            
+            <!-- Node D2 -->
+            <div class="node" style="left: 1100px; top: 250px;">
+                <div class="node-header">D2</div>
+                <div class="node-times">
+                    <div class="time-left">4</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow D2 to D3 -->
+            <div class="arrow arrow-horizontal" style="left: 1200px; top: 280px; width: 40px;"></div>
+            <div class="arrow-head" style="left: 1238px; top: 276px;"></div>
+            
+            <!-- Node D3 -->
+            <div class="node" style="left: 1250px; top: 250px;">
+                <div class="node-header">D3</div>
+                <div class="node-times">
+                    <div class="time-left">2.5</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow D3 to D4 -->
+            <div class="arrow arrow-vertical" style="left: 1300px; top: 310px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 1296px; top: 348px;"></div>
+            
+            <!-- Node D4 -->
+            <div class="node" style="left: 1250px; top: 350px;">
+                <div class="node-header">D4</div>
+                <div class="node-times">
+                    <div class="time-left">1.5</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow D4 to D5 -->
+            <div class="arrow arrow-vertical" style="left: 1300px; top: 410px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 1296px; top: 448px;"></div>
+            
+            <!-- Node D5 -->
+            <div class="node" style="left: 1250px; top: 450px;">
+                <div class="node-header">D5</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow D5 to E1 -->
+            <div class="arrow arrow-horizontal" style="left: 1350px; top: 480px; width: 50px;"></div>
+            <div class="arrow-head" style="left: 398px; top: 476px;"></div>
+            
+            <!-- Node E1 -->
+            <div class="node" style="left: 1400px; top: 450px;">
+                <div class="node-header">E1</div>
+                <div class="node-times">
+                    <div class="time-left">3</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow E1 to E2 (song song với D5 to E2) -->
+            <div class="arrow arrow-vertical" style="left: 1300px; top: 510px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 1296px; top: 548px;"></div>
+            
+            <!-- Node E2 -->
+            <div class="node" style="left: 1250px; top: 550px;">
+                <div class="node-header">E2</div>
+                <div class="node-times">
+                    <div class="time-left">8</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow E2 to E3 -->
+            <div class="arrow arrow-horizontal" style="left: 1350px; top: 580px; width: 50px;"></div>
+            <div class="arrow-head" style="left: 398px; top: 576px;"></div>
+            
+            <!-- Node E3 -->
+            <div class="node" style="left: 1400px; top: 550px;">
+                <div class="node-header">E3</div>
+                <div class="node-times">
+                    <div class="time-left">4</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow E3 to E4 -->
+            <div class="arrow arrow-vertical" style="left: 1450px; top: 610px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 1446px; top: 648px;"></div>
+            
+            <!-- Node E4 -->
+            <div class="node" style="left: 1400px; top: 650px;">
+                <div class="node-header">E4</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow E4 to E5 -->
+            <div class="arrow arrow-horizontal" style="left: 1500px; top: 680px; width: 50px;"></div>
+            <div class="arrow-head" style="left: 548px; top: 676px;"></div>
+            
+            <!-- Node E5 -->
+            <div class="node" style="left: 1550px; top: 650px;">
+                <div class="node-header">E5</div>
+                <div class="node-times">
+                    <div class="time-left">2.5</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Arrow E5 to E6 -->
+            <div class="arrow arrow-vertical" style="left: 1600px; top: 610px; height: 40px;"></div>
+            <div class="arrow-head" style="left: 1596px; top: 568px;"></div>
+            
+            <!-- Node E6 -->
+            <div class="node" style="left: 1550px; top: 550px;">
+                <div class="node-header">E6</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Các node F (thiết kế CSDL) - song song -->
+            <!-- Node F1 -->
+            <div class="node" style="left: 200px; top: 650px;">
+                <div class="node-header">F1</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Node F2 -->
+            <div class="node" style="left: 320px; top: 650px;">
+                <div class="node-header">F2</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Node F3 -->
+            <div class="node" style="left: 440px; top: 650px;">
+                <div class="node-header">F3</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Node F4 -->
+            <div class="node" style="left: 320px; top: 750px;">
+                <div class="node-header">F4</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Node F5 -->
+            <div class="node" style="left: 440px; top: 750px;">
+                <div class="node-header">F5</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Node F6 -->
+            <div class="node" style="left: 560px; top: 750px;">
+                <div class="node-header">F6</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Node F7 -->
+            <div class="node" style="left: 680px; top: 750px;">
+                <div class="node-header">F7</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Node F8 -->
+            <div class="node" style="left: 800px; top: 750px;">
+                <div class="node-header">F8</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Node F9 -->
+            <div class="node" style="left: 920px; top: 750px;">
+                <div class="node-header">F9</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Node F10 -->
+            <div class="node" style="left: 1040px; top: 750px;">
+                <div class="node-header">F10</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Node F11 -->
+            <div class="node" style="left: 1160px; top: 750px;">
+                <div class="node-header">F11</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Node F12 -->
+            <div class="node" style="left: 1280px; top: 750px;">
+                <div class="node-header">F12</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Node F13 -->
+            <div class="node" style="left: 1400px; top: 750px;">
+                <div class="node-header">F13</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Các node G (Lập trình) -->
+            <!-- Node G1-G14 tương tự F1-F13 + G14 -->
+            <div class="node" style="left: 200px; top: 850px;">
+                <div class="node-header">G1</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 320px; top: 850px;">
+                <div class="node-header">G2</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 440px; top: 850px;">
+                <div class="node-header">G3</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 560px; top: 850px;">
+                <div class="node-header">G4</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 680px; top: 850px;">
+                <div class="node-header">G5</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 800px; top: 850px;">
+                <div class="node-header">G6</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 920px; top: 850px;">
+                <div class="node-header">G7</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 1040px; top: 850px;">
+                <div class="node-header">G8</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 1160px; top: 850px;">
+                <div class="node-header">G9</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 1280px; top: 850px;">
+                <div class="node-header">G10</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 1400px; top: 850px;">
+                <div class="node-header">G11</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 1520px; top: 850px;">
+                <div class="node-header">G12</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 1640px; top: 850px;">
+                <div class="node-header">G13</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 1760px; top: 850px;">
+                <div class="node-header">G14</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Các node H (Kiểm thử) -->
+            <div class="node" style="left: 200px; top: 950px;">
+                <div class="node-header">H1</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 320px; top: 950px;">
+                <div class="node-header">H2</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 440px; top: 950px;">
+                <div class="node-header">H3</div>
+                <div class="node-times">
+                    <div class="time-left">1.5</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 560px; top: 950px;">
+                <div class="node-header">H4</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 680px; top: 950px;">
+                <div class="node-header">H5</div>
+                <div class="node-times">
+                    <div class="time-left">1.5</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 800px; top: 950px;">
+                <div class="node-header">H6</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 920px; top: 950px;">
+                <div class="node-header">H7</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 1040px; top: 950px;">
+                <div class="node-header">H8</div>
+                <div class="node-times">
+                    <div class="time-left">2.5</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Các node I (Bàn giao) -->
+            <div class="node" style="left: 1200px; top: 950px;">
+                <div class="node-header">I1</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 1320px; top: 950px;">
+                <div class="node-header">I2</div>
+                <div class="node-times">
+                    <div class="time-left">2</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <div class="node" style="left: 1440px; top: 950px;">
+                <div class="node-header">I3</div>
+                <div class="node-times">
+                    <div class="time-left">1</div>
+                    <div class="time-right">0</div>
+                </div>
+            </div>
+            
+            <!-- Thêm một số mũi tên quan trọng -->
+            <!-- Arrow từ E6 tới F1 -->
+            <div class="arrow arrow-horizontal" style="left: 250px; top: 680px; width: 40px;"></div>
+            
+            <!-- Arrow từ F13 tới G1 -->
+            <div class="arrow arrow-vertical" style="left: 250px; top: 810px; height: 40px;"></div>
+            
+            <!-- Arrow từ G14 tới H1 -->
+            <div class="arrow arrow-vertical" style="left: 250px; top: 910px; height: 40px;"></div>
+            
+            <!-- Arrow từ H8 tới I1 -->
+            <div class="arrow arrow-horizontal" style="left: 1140px; top: 980px; width: 60px;"></div>
+            
+            <!-- Arrow từ I1 tới I2 -->
+            <div class="arrow arrow-horizontal" style="left: 1300px; top: 980px; width: 20px;"></div>
+            
+            <!-- Arrow từ I2 tới I3 -->
+            <div class="arrow arrow-horizontal" style="left: 1420px; top: 980px; width: 20px;"></div>
+            
+        </div>
+        
+        <div style="margin-top: 20px; padding: 15px; background: #f0f8ff; border-radius: 5px;">
+            <h3>Chú thích:</h3>
+            <p><strong>Cấu trúc node:</strong></p>
+            <ul>
+                <li>Phần trên: Tên công việc (A1, A2, B1, ...)</li>
+                <li>Phần dưới trái: Thời gian thực hiện (ngày)</li>
+                <li>Phần dưới phải: Thời gian dự trữ (0 cho đường găng)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
